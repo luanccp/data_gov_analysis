@@ -1,0 +1,4 @@
+- [x] Separar todos os municipios que apresentam igualdade
+- [x] Plotar estados que apresentam igualdade
+- [ ] comparar colunas das cidades que apresentam igualdade
+- [ ] Apresentar colunas relevantes
