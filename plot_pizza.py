@@ -6,10 +6,7 @@ import seaborn as sns
 def plot_by_uf(df,uf):
     sns.set(style="whitegrid")
 
-    # Initialize the matplotlib figure
     f, ax = plt.subplots(figsize=(6, 55))
-
-    # genders = sns.load_dataset(dataset).sort_values("total", ascending=False)
 
     sns.set_color_codes("muted")
     sns.barplot(x="PERC_POPULACAO_FEMININA", y="NOME_CIDADE", data=df[df.UF == uf],label="FEM", color="b")
@@ -61,7 +58,7 @@ def plot_pizza_gender_equal(df):
 ## Mapear diferenca entre rural e urbano
 def plot_pizza_rural_urbano(df):
     fig1, ax1 = plt.subplots()
-    ax1.pie([df['PERC_POPULACAO_URBANA'].mean(), df['PERC_POPULACAO_RURAL'].mean()], labels=["URBANO", "RURAL"], autopct='%1.1f%%', shadow=True, startangle=90)
+    ax1.pie([df['PERC_POPULACAO_URBANA'].mean(), df['PERC_POPULACAO_RURAL'].mean()], labels=["URBANO", "RURAL"], autopct='%1.1f%%', shadow=True, startangle=90, colors = ['grey','green'])
     ax1.axis('equal')
 
     fig1.suptitle('Relação URB x RUR', fontsize=16)
@@ -71,7 +68,7 @@ def plot_pizza_rural_urbano(df):
 def plot_pizza_qtd_domicilio(df):
     fig1, ax1 = plt.subplots()
 
-    ax1.pie([df['QTD_DOMICILIOS_RESP_HOMEM'].mean(), df['QTD_DOMICILIOS_RESP_MULHER'].mean()], labels=["Homem", "Mulher"], autopct='%1.1f%%', shadow=True, startangle=90)
+    ax1.pie([df['QTD_DOMICILIOS_RESP_HOMEM'].mean(), df['QTD_DOMICILIOS_RESP_MULHER'].mean()], labels=["Homem", "Mulher"], autopct='%1.1f%%', shadow=True, startangle=90, colors=['gray','green'])
     ax1.axis('equal')
     fig1.suptitle('Responsáveis pelo domicílio', fontsize=16)
     plt.show()
@@ -105,3 +102,39 @@ def plot_bar_2columns(df,var_1, var_2, label_1, label_2, label_y, title):
     fig.tight_layout()
     
     plt.show()
+
+def plot_bar_idades(df):
+        data =[]
+        data.append(df['PERC_POPULACAO_TOTAL_0a5'].mean())
+        data.append(df['PERC_POPULACAO_TOTAL_6a14'].mean())
+        data.append(df['PERC_POPULACAO_TOTAL_14a24'].mean())
+        data.append(df['PERC_POPULACAO_TOTAL_25a39'].mean())
+        data.append(df['PERC_POPULACAO_TOTAL_40a59'].mean())
+        data.append(df['PERC_POPULACAO_TOTAL_ACIMA60'].mean())
+
+        plot_pizza(data,
+        ['0 a 5','6 a 14', '14 a 24','25 a 39', '40 a 59', 'Acima 60'],
+        "POR IDADE")
+
+def plot_bar_salario_por_cidade(df, cidade):
+    labels = [cidade]
+    men_means = []
+    women_means = []
+    df = df[df.NOME_CIDADE == cidade]
+    men_means.append(df['MEDIA_REND_NOMINAL_HOMENS'].mean())
+    women_means.append(df['MEDIA_REND_NOMINAL_MULHERES'].mean())
+    # localizacao da label
+    x = np.arange(len(labels))  
+    # largura da barra
+    width = 0.35  
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(x - width/2, men_means, width, label='Homem')
+    rects2 = ax.bar(x + width/2, women_means, width, label='Mulher')
+
+    # Editando a visualização
+    ax.set_ylabel('Salário (R$)')
+    ax.set_title('Renda média')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
