@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from plot_pizza import *
 
 def plot_bar_por_cidade(df, cidade, var, title, label_y):
     '''
