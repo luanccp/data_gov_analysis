@@ -10,11 +10,11 @@ def plot_pizza_gender(df, city_id):
 		df(DataFrame): dataset
 		city_id(int): id da cidade ou municipio
 	'''
-    labels = 'MAS','FEM'
-    data = df[df.ID_CIDADE == city_id]
-    newdata = [data.PERC_POPULACAO_FEMININA[0], data.PERC_POPULACAO_MASCULINA[0]]
-    
-    plot_pizza(newdata, labels, data['NOME_CIDADE'][0])
+	labels = 'MAS','FEM'
+	data = df[df.ID_CIDADE == city_id]
+	newdata = [data.PERC_POPULACAO_FEMININA[0], data.PERC_POPULACAO_MASCULINA[0]]
+
+	plot_pizza(newdata, labels, data['NOME_CIDADE'][0])
 
 
 def plot_pizza(data, labels,title):
@@ -25,13 +25,13 @@ def plot_pizza(data, labels,title):
 		labels([string]): Vetor com as colunas
 		title(string): Titulo do gráfico
 	'''
-    fig1, ax1 = plt.subplots()
+	fig1, ax1 = plt.subplots()
 
-    ax1.pie(data, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
-    ax1.axis('equal')
+	ax1.pie(data, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
+	ax1.axis('equal')
 
-    ax1.legend(labels, title=title, loc=4)
-    plt.show()
+	ax1.legend(labels, title=title, loc=4)
+	plt.show()
 
 def plot_pizza_avg_UF(df, uf):
 	'''
@@ -40,10 +40,10 @@ def plot_pizza_avg_UF(df, uf):
 		df(DataFrame): dataset
 		uf(string): Valor da UF. Exemple:'ES'
 	'''
-    new_df = df[df.UF == uf]
-    data =[new_df['PERC_POPULACAO_FEMININA'].mean(), new_df['PERC_POPULACAO_MASCULINA'].mean()]
+	new_df = df[df.UF == uf]
+	data =[new_df['PERC_POPULACAO_FEMININA'].mean(), new_df['PERC_POPULACAO_MASCULINA'].mean()]
 
-    plot_pizza(data,['MAS','FEM'], uf)
+	plot_pizza(data,['MAS','FEM'], uf)
 
 def plot_pizza_gender_equal(df):
 	'''
@@ -51,15 +51,15 @@ def plot_pizza_gender_equal(df):
 	Params:
 		df(DataFrame): dataset
 	'''
-    data = pd.DataFrame(df['UF'].value_counts())
-    plt.rcParams['figure.figsize'] = (11,7)
-    
-    plt.bar(np.arange(len(data)), df['UF'].value_counts(), align='center')
-    plt.xticks(np.arange(len(data)), data['UF'].keys())
-    plt.ylabel('Municípios')
-    plt.title('Estados igualitários')
+	data = pd.DataFrame(df['UF'].value_counts())
+	plt.rcParams['figure.figsize'] = (11,7)
 
-    plt.show()
+	plt.bar(np.arange(len(data)), df['UF'].value_counts(), align='center')
+	plt.xticks(np.arange(len(data)), data['UF'].keys())
+	plt.ylabel('Municípios')
+	plt.title('Estados igualitários')
+
+	plt.show()
 
 
 ## Mapear diferenca entre rural e urbano
@@ -69,12 +69,12 @@ def plot_pizza_rural_urbano(df):
 	Params:
 		df(DataFrame): dataset
 	'''
-    fig1, ax1 = plt.subplots()
-    ax1.pie([df['PERC_POPULACAO_URBANA'].mean(), df['PERC_POPULACAO_RURAL'].mean()], labels=["URBANO", "RURAL"], autopct='%1.1f%%', shadow=True, startangle=90, colors = ['grey','green'])
-    ax1.axis('equal')
+	fig1, ax1 = plt.subplots()
+	ax1.pie([df['PERC_POPULACAO_URBANA'].mean(), df['PERC_POPULACAO_RURAL'].mean()], labels=["URBANO", "RURAL"], autopct='%1.1f%%', shadow=True, startangle=90, colors = ['grey','green'])
+	ax1.axis('equal')
 
-    fig1.suptitle('Relação URB x RUR', fontsize=16)
-    plt.show()
+	fig1.suptitle('Relação URB x RUR', fontsize=16)
+	plt.show()
 
 
 def plot_pizza_qtd_domicilio(df):
@@ -83,10 +83,9 @@ def plot_pizza_qtd_domicilio(df):
 	Params:
 		df(DataFrame): dataset
 	'''
-    fig1, ax1 = plt.subplots()
+	fig1, ax1 = plt.subplots()
 
-    ax1.pie([df['QTD_DOMICILIOS_RESP_HOMEM'].mean(), df['QTD_DOMICILIOS_RESP_MULHER'].mean()], labels=["Homem", "Mulher"], autopct='%1.1f%%', shadow=True, startangle=90, colors=['gray','green'])
-    ax1.axis('equal')
-    fig1.suptitle('Responsáveis pelo domicílio', fontsize=16)
-    plt.show()
-
+	ax1.pie([df['QTD_DOMICILIOS_RESP_HOMEM'].mean(), df['QTD_DOMICILIOS_RESP_MULHER'].mean()], labels=["Homem", "Mulher"], autopct='%1.1f%%', shadow=True, startangle=90, colors=['gray','green'])
+	ax1.axis('equal')
+	fig1.suptitle('Responsáveis pelo domicílio', fontsize=16)
+	plt.show()
